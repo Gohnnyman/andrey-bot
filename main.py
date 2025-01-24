@@ -26,16 +26,20 @@ def run_bot():
 
     new_tab = popup_info.value
 
+
+    course_name = settings.get("course_name")
+    course_id = settings.get("course_id")
+
     # Wait for the new tab to load
     # new_tab.wait_for_load_state("networkidle") # Wait for the network to be idle
     new_tab.locator("//td[text()='Matrikelnummer']/following-sibling::td/input").fill(settings.get("login"))
     new_tab.locator("//td[text()='Accountpasswort']/following-sibling::td/input").fill(settings.get("password"))
     new_tab.locator("input[value='Login']").click()
-    new_tab.click("//span[text()='Global Business']/following::a[text()='VUE anmelden'][1]")
+    new_tab.click(f"//span[text()='{course_name}']/following::a[text()='VUE anmelden'][1]")
 
 
     # Locate the lector's name in the row with 5738
-    anmelden_button = new_tab.locator("//table[@class='b3k-data']//tr[td[@class='ver_id']/a[text()='5738']]//td[@class='action']/form/input[@value='anmelden']")
+    anmelden_button = new_tab.locator(f"//table[@class='b3k-data']//tr[td[@class='ver_id']/a[text()='{course_id}']]//td[@class='action']/form/input[@value='anmelden']")
 
 
     # Inject CSS to highlight only the specific button
