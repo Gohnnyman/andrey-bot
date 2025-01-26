@@ -3,5 +3,6 @@
     "password": "admin",
     "course_name": "Global Business",
     "course_id": "5738",
-    "time": "16:00"
+    "time": "16:00",
+    "is_test": false
 }

@@ -11,6 +11,8 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
 
     steps:
     # Step 1: Checkout the repository
@@ -88,6 +90,8 @@ jobs:
   build-and-release-linux:
     runs-on: ubuntu-latest
     needs: build-and-release-windows
+    permissions:
+      contents: write
 
     steps:
     # Step 1: Checkout the repository
@@ -121,21 +125,15 @@ jobs:
     - name: Prepare settings.json
       run: cp settings_example.json dist/settings.json
 
-    # Step 7: Wait for Release to Be Created
-    - name: Wait for Release
-      run: |
-        while ! gh release view v1.0.0; do
-          echo "Waiting for the release to be created..."
-          sleep 10
-        done
 
-    # Step 8: Upload Linux main to the Release
+
+    # Step 7: Upload Linux main to the Release
     - name: Upload Linux main to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.build-and-release-windows.outputs.create_release.upload_url }}
+        upload_url: ${{ needs.build-and-release-windows.outputs.release_upload_url }}
         asset_path: dist/main
         asset_name: main-linux
         asset_content_type: application/octet-stream
