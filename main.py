@@ -98,6 +98,7 @@ def run_bot():
     # Refresh the page
     print("Refreshing the page...")
     new_tab.reload(wait_until="networkidle", timeout=60000)
+    new_tab.wait_for_load_state("networkidle", timeout=60000)  # Wait for the login process to complete
 
     # Locate the "anmelden" button
     print(f"Locating the 'anmelden' button for course ID {course_id}...")
