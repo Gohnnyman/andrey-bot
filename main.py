@@ -46,9 +46,10 @@ def wait_until(target_time):
 
 
 def run_bot():
-    # Load settings from the JSON file
-    with open("settings.json", "r") as file:
+    # Load settings from the JSON file with UTF-8 encoding
+    with open("settings.json", "r", encoding="utf-8") as file:
         settings = json.load(file)
+
 
     # Start Playwright
     playwright = sync_playwright().start()
