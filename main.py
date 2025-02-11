@@ -89,7 +89,7 @@ def run_bot():
 
     # Navigate to the course
     print(f"Navigating to the course: {course_name}...")
-    new_tab.click(f"//span[text()='{course_name}']/following::a[text()='VUE anmelden'][1]", timeout=30000)
+    new_tab.click(f"//span[text()='{course_name}']/following::a[1]", timeout=30000)
     new_tab.wait_for_load_state("networkidle", timeout=60000)
 
     # Wait until the specified time
